@@ -1,34 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sajjad Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sajjad Ahmad - DevOps Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background: #f5f6fa; color: #333; line-height: 1.6; }
+    header { background: url('https://source.unsplash.com/1600x400/?technology,devops') no-repeat center/cover; height: 400px; display: flex; align-items: center; justify-content: center; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
+    header h1 { font-size: 3em; }
+    nav { background: #0D78AC; padding: 1em; text-align: center; }
+    nav a { color: white; margin: 0 1em; text-decoration: none; font-weight: 600; }
+    section { padding: 3em 1em; max-width: 900px; margin: 0 auto; }
+    h2 { margin-bottom: 1em; color: #0D78AC; }
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5em; }
+    .project-card { background: white; border-radius: 10px; padding: 1em; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .project-card img { width: 100%; border-radius: 8px; }
+    footer { background: #0D78AC; color: white; text-align: center; padding: 2em 1em; margin-top: 2em; }
+    button { background: #11AFEA; color: white; border: none; padding: 0.7em 1.5em; border-radius: 5px; cursor: pointer; font-weight: 600; }
+    button:hover { background: #0D78AC; }
+    form { display: flex; flex-direction: column; gap: 1em; max-width: 500px; margin: 0 auto; }
+    input, textarea { padding: 0.7em; border-radius: 5px; border: 1px solid #ccc; width: 100%; }
+  </style>
 </head>
 <body>
-  <h1>Sajjad Ahmad</h1>
-  <p>DevOps Portfolio Project</p>
 
-  <h2>Contact Me</h2>
-  <form id="contactForm">
-    <input type="text" placeholder="Name" id="name" required /><br/>
-    <input type="email" placeholder="Email" id="email" required /><br/>
-    <textarea placeholder="Message" id="message"></textarea><br/>
-    <button type="submit">Send</button>
-  </form>
+  <header>
+    <h1>Sajjad Ahmad</h1>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hi, I’m Sajjad Ahmad, a passionate DevOps Engineer and Full Stack Developer. I specialize in building cloud infrastructure, automating CI/CD pipelines, and containerizing applications with Docker. I love turning ideas into reliable, scalable software solutions.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <img src="https://source.unsplash.com/400x200/?cloud,server" alt="Project Image">
+        <h3>DevOps Pipeline Demo</h3>
+        <p>Automated CI/CD pipeline with Jenkins and Docker for deploying web applications efficiently.</p>
+      </div>
+      <div class="project-card">
+        <img src="https://source.unsplash.com/400x200/?docker,kubernetes" alt="Project Image">
+        <h3>Containerized Portfolio</h3>
+        <p>Portfolio website deployed in Docker containers with backend API and contact form integration.</p>
+      </div>
+      <div class="project-card">
+        <img src="https://source.unsplash.com/400x200/?automation,code" alt="Project Image">
+        <h3>Automation Scripts</h3>
+        <p>Scripts for server setup, backups, and automated deployments using Bash and Python.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sajjad Ahmad | DevOps Engineer</p>
+  </footer>
 
   <script>
-    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      await fetch("/contact", {
+      const response = await fetch("/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.value,
-          email: email.value,
-          message: message.value
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          message: document.getElementById("message").value
         })
       });
-      alert("Message sent");
+      if(response.ok){
+        alert("Message sent successfully!");
+        form.reset();
+      } else {
+        alert("Error sending message. Try again.");
+      }
     });
   </script>
+
 </body>
 </html>
+
