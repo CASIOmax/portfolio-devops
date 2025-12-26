@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sajjad Portfolio</title>
+</head>
+<body>
+  <h1>Sajjad Ahmad</h1>
+  <p>DevOps Portfolio Project</p>
+
+  <h2>Contact Me</h2>
+  <form id="contactForm">
+    <input type="text" placeholder="Name" id="name" required /><br/>
+    <input type="email" placeholder="Email" id="email" required /><br/>
+    <textarea placeholder="Message" id="message"></textarea><br/>
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.value,
+          email: email.value,
+          message: message.value
+        })
+      });
+      alert("Message sent");
+    });
+  </script>
+</body>
+</html>
