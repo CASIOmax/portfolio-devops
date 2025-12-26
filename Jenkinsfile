@@ -11,7 +11,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('portfolio-app:latest', '.')
+                   docker.build('portfolio-app:latest', '--no-cache .')
                 }
             }
         }
